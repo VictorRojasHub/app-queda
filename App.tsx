@@ -6,25 +6,12 @@ import * as Location from 'expo-location';
 
 export default function App() {
   const [data, setData] = useState({ x: 0, y: 0, z: 0 });
-  const [location, setLocation] = useState<Location.LocationObject | null>(null);
-  const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const [location, setLocation] = useState<Location.LocationObject|null>(null);
+  const [errorMsg, setErrorMsg] = useState(null);
 
 useEffect(() => {
   subscribe();
   return () => unsubscribe();
-}, []);
-
-useEffect(() => {
-(async () => {
-  let { status } = await Location.requestForegroundPermissionsAsync();
-  if (status !== 'granted') {
-  setErrorMsg('Permission to access location was denied');
-return;
-
-}
-
-})();
-
 }, []);
 
 const subscribe = () => {
@@ -50,7 +37,7 @@ const unsubscribe = () => {
 };
 
 
-const alertFall = (location: Location.LocationObject) => {
+const alertFall = (location:Location.LocationObject) => {
 
   Alert.alert(
 
